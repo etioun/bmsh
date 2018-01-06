@@ -162,15 +162,15 @@ class CatalogueController extends Controller
 // mais pour l'instant elle marche avec l'url "/catalogue/{produit}"
 
      /**
-      * @Route("/list/{name}", name="name")
+      * @Route("/catalogue/{nomCategorie}/{nomProduit}", name="name")
       */
     // // fonction d'affichage d'un seul produit
-    function showProduct($name)
+    function showProduct($nomCategorie, $nomProduit)
     {
-        $produits = $this->getDoctrine()
+        $produit = $this->getDoctrine()
                         ->getRepository(Produits::class)
-                        ->findBy(["produits" => $name]);
-        return $this->render("base/list.html.twig", ["produits" => $produits]);
+                        ->findOneBy(["nom" => $nomProduit, "categorie"=>$nomCategorie]);
+        return $this->render("base/list.html.twig", ["produit" => $produit]);
     }
 
 
